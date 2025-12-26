@@ -1,0 +1,21 @@
+{
+  "name": "Typst Development",
+  "image": "ubuntu:24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "postCreateCommand": "curl -fsSL https://typst.community/typst-install/install.sh | sh && echo 'export PATH=\"$HOME/.local/bin:$PATH\"' >> ~/.bashrc",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "myriad-dreamin.tinymist",
+        "mathematic.vscode-pdf"
+      ],
+      "settings": {
+        "tinymist.exportPdf": "onSave",
+        "tinymist.outputPath": "$root/$name.pdf"
+      }
+    }
+  }
+}
