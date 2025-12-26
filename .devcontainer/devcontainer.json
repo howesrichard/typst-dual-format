@@ -13,7 +13,7 @@
         "mathematic.vscode-pdf"
       ],
       "settings": {
-        "tinymist.exportPdf": "onSave",
+        "tinymist.exportPdf": "never",
         "tinymist.outputPath": "$root/$name.pdf"
       }
     }
