@@ -18,6 +18,45 @@ This system eliminates content duplication in educational materials by using Typ
 - 🎨 **Consistent Styling** - Unified visual language across all materials
 - 🛠️ **Easy Maintenance** - Updates propagate automatically to both formats
 
+## Installation
+
+This package is designed to be used as a Git submodule in your course content repositories.
+
+### Adding to Your Course Repository
+
+1. **Add as a submodule** in your course repository:
+   ```bash
+   git submodule add https://github.com/howesrichard/typst-dual-format.git utility
+   ```
+
+2. **Initialize and update** (for first-time setup):
+   ```bash
+   git submodule init
+   git submodule update
+   ```
+
+3. **Clone a repository with submodules** (for team members):
+   ```bash
+   git clone --recurse-submodules <your-course-repo-url>
+   ```
+
+   Or if already cloned without submodules:
+   ```bash
+   git submodule update --init --recursive
+   ```
+
+### Updating to Latest Version
+
+To update the dual-format system in your course repository:
+
+```bash
+cd utility
+git pull origin main
+cd ..
+git add utility
+git commit -m "Update dual-format system to latest version"
+```
+
 ## Quick Start
 
 ### File Structure
@@ -80,4 +119,6 @@ Originally developed for the FINMA derivatives course content management system,
 
 ## License
 
-[Add your license here]
+Proprietary - Copyright (c) 2025 Financial Markets Academy (FINMA). All rights reserved.
+
+This software is licensed for internal use only by authorized FINMA employees. See [LICENSE](LICENSE) for full terms.
