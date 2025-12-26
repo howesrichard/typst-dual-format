@@ -143,9 +143,9 @@
     // Document format: full content (unchanged)
     if title != none [
       == #title
-      #if subtitle != none [
+      #if subtext != none [
         #v(-0.2em)
-        #text(size: 0.9em, weight: "light", style: "italic")[#subtitle]
+        #text(size: 0.9em, weight: "light", style: "italic")[#subtext]
       ]
       #v(0.3em)
     ]
