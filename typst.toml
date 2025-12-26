@@ -1,0 +1,11 @@
+[package]
+name = "dual-format"
+version = "0.1.0"
+entrypoint = "dual_format.typ"
+authors = ["Richard Howes"]
+license = "Proprietary"
+description = "A sophisticated content management system for course materials that enables write once, render twice"
+homepage = "https://github.com/howesrichard/typst-dual-format"
+repository = "https://github.com/howesrichard/typst-dual-format"
+keywords = ["training", "presentation", "document", "dual-format", "finance"]
+categories = ["components"]
