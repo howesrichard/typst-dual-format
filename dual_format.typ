@@ -24,6 +24,16 @@
   if output-mode.get() == "document" { content }
 }
 
+// Presentation-only page break
+#let slide-break() = context {
+  if output-mode.get() == "presentation" { pagebreak() }
+}
+
+// Document-only page break
+#let page-break() = context {
+  if output-mode.get() == "document" { pagebreak() }
+}
+
 #let both-formats(presentation-content, document-content) = context {
   if output-mode.get() == "presentation" { presentation-content }
   else if output-mode.get() == "document" { document-content }
@@ -93,14 +103,14 @@
   summary: none,
   details: none,
   examples: none,
-  center: true
+  centered: false
 ) = context {
   if output-mode.get() == "presentation" {
     // Presentation format: title + summary only with optional vertical centering
     if title != none {
       pagebreak()
       [= #title]
-      
+
       line(length: 100%, stroke: 1.5pt + rgb("#609ed6"))
       v(-0.5em)
       text(size:1.1em, weight: "light", fill: rgb("#666666"))[#subtext]
@@ -108,11 +118,11 @@
 
       if summary != none {
         place(
-          top + (if center { center } else { left }),
+          top + (if centered { center } else { left }),
           dy: 65pt,  // 30pt from top of slide
           block(
-            width: if center { auto } else { 100% },
-            height: if center { 200pt } else { 470pt },
+            width: if centered { auto } else { 100% },
+            height: if centered { 200pt } else { 470pt },
           )[
             #text(size: 1.2em)[#summary]
           ]
@@ -120,7 +130,7 @@
       }
     } else if summary != none {
       pagebreak()
-      if center {
+      if centered {
         align(horizon, [
           #block(inset: (bottom: 2em))[#summary]
         ])
