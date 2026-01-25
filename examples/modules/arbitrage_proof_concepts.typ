@@ -8,7 +8,7 @@
 
 #content-block(
   title: "Arbitrage Proof Framework",
-  center: false,
+  centered: false,
   summary: [
     #two-row-grid(
       [
@@ -48,7 +48,7 @@
 
 #content-block(
   title: "Arbitrage Proof Details",
-  center: false,
+  centered: false,
   summary: [
     #two-column-grid(
       [

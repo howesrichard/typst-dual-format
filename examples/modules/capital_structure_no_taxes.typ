@@ -10,7 +10,7 @@
 
 #content-block(
   title: "Capital Structure - No Taxes",
-  center: false,
+  centered: false,
   summary: [
     #two-row-grid(
       ["TOP"],

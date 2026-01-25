@@ -11,7 +11,7 @@
 #content-block(
   title: "MM Irrelevance Proposition",
   subtext: "Two professors Franco Modigliani and Merton Miller developed the theory of capital structure (Modigliani-Miller or MM theory) in the 1950s and 1960s",
-  center: false,
+  centered: false,
   summary: [
     #two-row-grid(
       [
