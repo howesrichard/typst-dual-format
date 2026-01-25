@@ -5,6 +5,7 @@
 #set heading(numbering: "1.")
 #set par(justify: true)
 #set-mode("document")
+#set-show-advanced(false)
 
 // Title page with logo
 #set page(

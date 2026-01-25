@@ -10,9 +10,20 @@
   }
 )
 
+// Content tier control - allows filtering advanced content from teaching materials
+// Default: show all content (advanced=true). Use advanced=false for core teaching materials.
+#let show-advanced = state("show-advanced",
+  if sys.inputs.at("advanced", default: "true") == "true" { true } else { false }
+)
+
 // Set output mode
 #let set-mode(mode) = {
   output-mode.update(mode)
+}
+
+// Set advanced content visibility
+#let set-show-advanced(value) = {
+  show-advanced.update(value)
 }
 
 // Conditional content functions
@@ -38,6 +49,14 @@
   if output-mode.get() == "presentation" { presentation-content }
   else if output-mode.get() == "document" { document-content }
 }
+
+// Advanced content wrapper - content only shows when show-advanced is true
+// Use this to wrap pricing formulas, Greeks, complex examples that should be
+// hidden in core teaching materials but preserved for reference/self-study
+#let advanced-content(content) = context {
+  if show-advanced.get() { content }
+}
+
 
 // Orange example box with transparency for highlighting examples
 #let examples-box(content) = context {
