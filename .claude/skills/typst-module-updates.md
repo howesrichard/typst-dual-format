@@ -113,7 +113,48 @@ The submodule version requires **named parameters only**:
 )
 ```
 
-### 4. Verification Steps
+### 4. Elements Outside Content-Blocks (Overlapping Issue)
+
+**CRITICAL:** Elements like `#concept-box` placed **outside** a `content-block` but intended to appear on the same slide will overlap in presentation mode.
+
+```typst
+// WRONG - concept-box outside content-block causes overlapping:
+#content-block(
+  title: "Comparison",
+  summary: [
+    #grid(
+      columns: (1fr, 1fr, 1fr),
+      concept-box([Box 1]),
+      concept-box([Box 2]),
+      concept-box([Box 3])
+    )
+  ],
+  details: [...]
+)
+
+#concept-box([Summary box])  // THIS OVERLAPS with content above!
+
+
+// CORRECT - move the summary box inside the summary parameter:
+#content-block(
+  title: "Comparison",
+  summary: [
+    #grid(
+      columns: (1fr, 1fr, 1fr),
+      concept-box([Box 1]),
+      concept-box([Box 2]),
+      concept-box([Box 3])
+    )
+
+    #concept-box([Summary box])  // Now flows correctly after the grid
+  ],
+  details: [...]
+)
+```
+
+**Why this happens:** In presentation mode, each `content-block` defines a slide's content area. Elements outside the block are rendered separately and can overlap with the block's content.
+
+### 5. Verification Steps
 
 After making changes, always verify compilation:
 
@@ -131,7 +172,7 @@ typst compile Topic_N/Topic_N_document.typ --root . /tmp/test_doc.pdf
 - Page breaks occur at expected locations
 - Title slides render correctly
 
-### 5. Reference Examples
+### 6. Reference Examples
 
 Working examples in `typst-dual-format/examples/`:
 - `corporate_finance_optimal_capital_structure_slides.typ`
@@ -147,6 +188,7 @@ Working examples in `typst-dual-format/examples/`:
 | "unexpected argument" on title-slide | Positional argument or wrong parameter name | Use named params: `title:`, `subtitle:`, `author:` |
 | Text centered when it shouldn't be | `centered: true` (explicitly or as default) | Set `centered: false` |
 | Text overlapping vertically | `centered: true` with `place()` absolute positioning | Set `centered: false` |
+| Content boxes overlapping on slides | `#concept-box` or similar elements placed outside `content-block` | Move elements inside the `summary:` parameter |
 
 ## Updating Multiple Topics
 
