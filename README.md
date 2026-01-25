@@ -113,6 +113,31 @@ typst compile Typst_system_explanation.typ
 
 - [Typst](https://typst.app/) installed (or use the web app)
 
+### Devcontainer to work on this repo
+The .devcontainer/devcontainer.json file has been removed because this repo is used as a submodule.
+To run a codespaces on this machine, the dependencies below might help:
+{
+  "name": "Typst Development",
+  "image": "ubuntu:24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "postCreateCommand": "curl -fsSL https://typst.community/typst-install/install.sh | sh && echo 'export PATH=\"$HOME/.local/bin:$PATH\"' >> ~/.bashrc",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "myriad-dreamin.tinymist",
+        "mathematic.vscode-pdf"
+      ],
+      "settings": {
+        "tinymist.exportPdf": "never",
+        "tinymist.outputPath": "$root/$name.pdf"
+      }
+    }
+  }
+}
+
 ## Use Case
 
 Originally developed for the FINMA derivatives course content management system, this architecture is suitable for any educational content that needs to be presented in multiple formats while maintaining consistency and reducing maintenance overhead.
@@ -122,3 +147,5 @@ Originally developed for the FINMA derivatives course content management system,
 Proprietary - Copyright (c) 2025 Financial Markets Academy (FINMA). All rights reserved.
 
 This software is licensed for internal use only by authorized FINMA employees. See [LICENSE](LICENSE) for full terms.
+
+
