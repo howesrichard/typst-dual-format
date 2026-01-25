@@ -8,7 +8,7 @@
 
 #content-block(
   title: "MMI: Firm Value Independence",
-  center: false,
+  centered: false,
   summary: [
     #two-column-grid(
       [
@@ -35,7 +35,7 @@
 
 #content-block(
   title: "MMII: WACC Independence",
-  center: false,
+  centered: false,
   summary: [
     #two-column-grid(
       [
@@ -59,7 +59,7 @@
 
 #content-block(
   title: "Leverage and Cost of Equity",
-  center: false,
+  centered: false,
   summary: [
     #two-row-grid(
       [
@@ -85,7 +85,7 @@
 
 #content-block(
   title: "Cost of Equity Example",
-  center: false,
+  centered: false,
   summary: [
     #two-column-grid(
       [
@@ -110,7 +110,7 @@
 
 #content-block(
   title: "Homemade Leverage",
-  center: false,
+  centered: false,
   summary: [
     #two-column-grid(
       [
@@ -148,7 +148,7 @@
 
 #content-block(
   title: "Leverage and Risk (Beta Analysis)",
-  center: false,
+  centered: false,
   summary: [
     #two-column-grid(
       [
