@@ -24,11 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Updated document formatting
-  - added pagebreak and slidebreak functions
 - Updated README to include devcontainer JSON example
-
-### Fixed
-- updated center to centred to avoid conflicts with typst core language 
 
 ### Removed
 - Removed devcontainer configuration from repository
