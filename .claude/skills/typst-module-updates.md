@@ -115,7 +115,7 @@ The submodule version requires **named parameters only**:
 
 ### 4. Elements Outside Content-Blocks (Overlapping Issue)
 
-**CRITICAL:** Elements like `#concept-box` placed **outside** a `content-block` but intended to appear on the same slide will overlap in presentation mode.
+**CRITICAL:** ANY content placed **outside** a `content-block` but intended to appear on the same slide will overlap in presentation mode. This includes `#concept-box`, plain text paragraphs, or any other elements.
 
 ```typst
 // WRONG - concept-box outside content-block causes overlapping:
@@ -135,7 +135,17 @@ The submodule version requires **named parameters only**:
 #concept-box([Summary box])  // THIS OVERLAPS with content above!
 
 
-// CORRECT - move the summary box inside the summary parameter:
+// ALSO WRONG - plain text paragraph outside content-block:
+#content-block(
+  title: "Key Points",
+  summary: [...grid content...],
+  details: [...]
+)
+
+Hence, this summary paragraph will overlap with the slide above!
+
+
+// CORRECT - move ALL content inside the summary parameter:
 #content-block(
   title: "Comparison",
   summary: [
@@ -147,6 +157,8 @@ The submodule version requires **named parameters only**:
     )
 
     #concept-box([Summary box])  // Now flows correctly after the grid
+
+    Hence, this summary paragraph now flows correctly.
   ],
   details: [...]
 )
@@ -188,7 +200,7 @@ Working examples in `typst-dual-format/examples/`:
 | "unexpected argument" on title-slide | Positional argument or wrong parameter name | Use named params: `title:`, `subtitle:`, `author:` |
 | Text centered when it shouldn't be | `centered: true` (explicitly or as default) | Set `centered: false` |
 | Text overlapping vertically | `centered: true` with `place()` absolute positioning | Set `centered: false` |
-| Content boxes overlapping on slides | `#concept-box` or similar elements placed outside `content-block` | Move elements inside the `summary:` parameter |
+| Content overlapping on slides | Any content (concept-box, text, etc.) placed outside `content-block` | Move ALL content inside the `summary:` parameter |
 
 ## Updating Multiple Topics
 
