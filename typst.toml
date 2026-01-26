@@ -1,6 +1,6 @@
 [package]
 name = "dual-format"
-version = "0.1.2"
+version = "0.1.3"
 entrypoint = "dual_format.typ"
 authors = ["Richard Howes"]
 license = "Proprietary"
