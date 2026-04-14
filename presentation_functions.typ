@@ -56,7 +56,7 @@
           dy: -8%,     // 5% from bottom of image section
           text(
             fill: rgb("#253356"),  // Dark blue text
-            size: 3.5em,
+            size: 36pt,
             weight: "bold"
           )[#title]
         )
@@ -73,13 +73,13 @@
         
         // Top text
         align(left, [
-          #set text(fill: white, size: 3em, weight: "bold")
+          #set text(fill: white, size: 28pt, weight: "bold")
           #subtitle
         ]),
-        
+
         // Bottom text
         align(left, [
-          #set text(fill: white, size: 1em, weight: "bold")
+          #set text(fill: white, size: 18pt, weight: "bold")
           #author
         ])
       )
@@ -106,12 +106,13 @@
 
 // Two-column slide layout
 #let two-column-slide(title: none, left, right) = {
-  
+  pagebreak()
+
   if title != none [
     = #title
     #v(0.5em)
   ]
-  
+
   grid(
     columns: (1fr, 1fr),
     gutter: 1.5em,
