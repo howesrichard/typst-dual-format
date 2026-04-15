@@ -105,7 +105,7 @@
 }
 
 // Two-column slide layout
-#let two-column-slide(title: none, left, right) = {
+#let two-column-slide(title: none, left-col, right-col) = {
   pagebreak()
 
   if title != none [
@@ -116,8 +116,8 @@
   grid(
     columns: (1fr, 1fr),
     gutter: 1.5em,
-    left,
-    right
+    align(left, left-col),
+    align(left, right-col)
   )
 }
 
