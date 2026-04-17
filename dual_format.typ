@@ -56,8 +56,10 @@
 #let advanced-content(content) = context {
   if show-advanced.get() {
     v(0.5em)
-    line(length: 100%, stroke: 0.5pt + rgb("#888888"))
-    text(size: 0.8em, style: "italic", fill: rgb("#888888"))[Advanced content section]
+    block(sticky: true)[
+      #line(length: 100%, stroke: 0.5pt + rgb("#888888"))
+      #text(size: 0.8em, style: "italic", fill: rgb("#888888"))[Advanced content section]
+    ]
     v(0.3em)
     content
     v(0.3em)
