@@ -54,7 +54,17 @@
 // Use this to wrap pricing formulas, Greeks, complex examples that should be
 // hidden in core teaching materials but preserved for reference/self-study
 #let advanced-content(content) = context {
-  if show-advanced.get() { content }
+  if show-advanced.get() {
+    v(0.5em)
+    line(length: 100%, stroke: 0.5pt + rgb("#888888"))
+    text(size: 0.8em, style: "italic", fill: rgb("#888888"))[Advanced content section]
+    v(0.3em)
+    content
+    v(0.3em)
+    text(size: 0.8em, style: "italic", fill: rgb("#888888"))[End advanced content section]
+    line(length: 100%, stroke: 0.5pt + rgb("#888888"))
+    v(0.5em)
+  }
 }
 
 
