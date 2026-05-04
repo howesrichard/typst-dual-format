@@ -215,6 +215,53 @@
   }
 }
 
+// Document-only variant of content-block.
+// Same signature as content-block, but renders nothing in presentation mode.
+// In document mode, uses a dashed border and "(not presented)" label so the
+// reader can clearly see this content has no corresponding slide.
+#let content-block-doc-only(
+  title: none,
+  subtext: "",
+  summary: none,
+  details: none,
+  examples: none,
+  centered: false,
+) = context {
+  if output-mode.get() == "presentation" {
+    // Intentionally blank: this block is excluded from slides.
+  } else {
+    if title != none [
+      == #title
+      #if subtext != none [
+        #v(-0.2em)
+        #text(size: 0.9em, weight: "light", style: "italic")[#subtext]
+      ]
+      #v(0.3em)
+    ]
+    if summary != none {
+      rect(
+        width: 100%,
+        stroke: (paint: rgb("#888888"), thickness: 1.5pt, dash: "dashed"),
+        fill: rgb("#ededed").transparentize(70%),
+        radius: 6pt,
+        inset: 1em,
+      )[
+        #text(weight: "bold", fill: rgb("#888888"))[Summary Slide (not presented):]
+        #v(0.3em)
+        #text(size: 0.7em)[#summary]
+      ]
+    }
+    if details != none {
+      v(0.5em)
+      details
+    }
+    if examples != none {
+      v(0.5em)
+      examples-box(examples)
+    }
+  }
+}
+
 // Import presentation functions for slides
 #import "presentation_functions.typ": slide, title-slide, section-slide, formula-slide, two-column-slide, highlight-slide, final-slide, two-by-two-grid, three-column-grid, two-column-grid, two-row-grid, three-row-grid
 
