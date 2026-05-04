@@ -219,6 +219,12 @@
 // Same signature as content-block, but renders nothing in presentation mode.
 // In document mode, uses a dashed border and "(not presented)" label so the
 // reader can clearly see this content has no corresponding slide.
+//
+// `level` controls the title's heading depth (default 2, matching content-block).
+// Pass `level: 3` for blocks that should nest as sub-sections of a parent
+// content-block in the document (e.g. when several modules have been
+// consolidated under a single section heading and each module's doc-only
+// blocks should appear as children of that module's title).
 #let content-block-doc-only(
   title: none,
   subtext: "",
@@ -226,18 +232,19 @@
   details: none,
   examples: none,
   centered: false,
+  level: 2,
 ) = context {
   if output-mode.get() == "presentation" {
     // Intentionally blank: this block is excluded from slides.
   } else {
-    if title != none [
-      == #title
-      #if subtext != none [
-        #v(-0.2em)
-        #text(size: 0.9em, weight: "light", style: "italic")[#subtext]
-      ]
-      #v(0.3em)
-    ]
+    if title != none {
+      heading(level: level)[#title]
+      if subtext != none {
+        v(-0.2em)
+        text(size: 0.9em, weight: "light", style: "italic")[#subtext]
+      }
+      v(0.3em)
+    }
     if summary != none {
       rect(
         width: 100%,
