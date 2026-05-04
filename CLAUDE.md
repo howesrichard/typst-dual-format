@@ -42,17 +42,18 @@ This contract lets a reader of the document tell at a glance which sections were
 
 When working with repositories that use this submodule, use the following skill:
 
-- **typst-module-updates** - Guidance for migrating content files to use the submodule and handling function signature changes. Use this skill when:
-  - Updating import paths from root `dual_format.typ` to submodule path
-  - Encountering compilation errors after submodule updates
-  - Migrating multiple Topic folders to use the submodule
-  - Debugging formatting issues (centered text, overlapping content)
+- **typst-dual-format-troubleshooting** - Reference for function signatures, container restrictions, and common errors. Use this skill when:
+  - Encountering compilation errors related to `content-block`, `title-slide`, or other dual-format functions
+  - Debugging formatting issues (overlapping content, centered text, unexpected layout)
+  - Looking up function signatures or parameter names
+  - Verifying usage patterns after a submodule bump
 
-Invoke with: `/typst-module-updates`
+Invoke with: `/typst-dual-format-troubleshooting`
 
 ## Quick Reference
 
 ### Import Paths
+
 ```typst
 // Driver files (Topic_N/*.typ):
 #import "../typst-dual-format/dual_format.typ": *

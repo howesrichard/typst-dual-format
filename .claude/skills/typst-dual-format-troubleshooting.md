@@ -1,6 +1,8 @@
-# Typst Dual-Format Module Update Skill
+# Typst Dual-Format Troubleshooting Skill
 
-This skill guides updates to content repositories that use the `typst-dual-format` submodule for generating both presentation slides and long-form documents from shared content.
+Reference for function signatures, container restrictions, and common errors when authoring content with the `typst-dual-format` submodule. Use this when a compilation fails, a slide doesn't render as expected, or a parameter name needs verification.
+
+For the conceptual model (slide ↔ document mapping, what `summary` / `details` / `examples` control, when to use `content-block-doc-only` vs. `content-block`), see the submodule's [CLAUDE.md](../../CLAUDE.md) — that's the durable reference. This skill collects the gotchas that aren't obvious from the source.
 
 ## Repository Structure
 
@@ -10,7 +12,7 @@ This skill guides updates to content repositories that use the `typst-dual-forma
 - `presentation_functions.typ` - Slide-specific functions (`title-slide`, `slide-break`, etc.)
 - `document_functions.typ` - Document-specific functions (`page-break`, etc.)
 
-### Content Repository Structure
+### Content Repository Layout
 
 ```text
 Topic_N/
@@ -26,37 +28,13 @@ Topic_N/
     └── Topic_N_answers.typ
 ```
 
-## Migration Checklist
+Driver files import the submodule via `#import "../typst-dual-format/dual_format.typ": *`; content files use `../../typst-dual-format/dual_format.typ`.
 
-When updating content files to use the submodule (or when submodule is updated):
+## Function Signatures
 
-### 1. Update Import Paths
+### `title-slide`
 
-**Driver files** (in `Topic_N/`):
-
-```typst
-// OLD:
-#import "../dual_format.typ": *
-
-// NEW:
-#import "../typst-dual-format/dual_format.typ": *
-```
-
-**Content files** (in `Topic_N/Topic_N_Content/` or `Topic_N/Topic_N_QA/`):
-
-```typst
-// OLD:
-#import "../../dual_format.typ": *
-
-// NEW:
-#import "../../typst-dual-format/dual_format.typ": *
-```
-
-### 2. Function Signature Compatibility
-
-#### `title-slide` function
-
-The submodule version requires **named parameters only**:
+Requires **named parameters only**:
 
 ```typst
 // WRONG - positional argument not supported:
@@ -74,7 +52,7 @@ The submodule version requires **named parameters only**:
 )
 ```
 
-#### `content-block` function
+### `content-block`
 
 - Parameter is `centered` (not `center`)
 - Default is `centered: false` (left-justified)
@@ -89,7 +67,7 @@ The submodule version requires **named parameters only**:
 )
 ```
 
-#### `content-block-doc-only` function
+### `content-block-doc-only`
 
 Same signature as `content-block`. Renders nothing in presentation mode; in document mode renders with a **dashed** gray border and a **"Summary Slide (not presented):"** label so the reader can see the content has no corresponding slide.
 
@@ -105,7 +83,7 @@ Use this when culling a slide while keeping its underlying material in the docum
 
 **Do not** use `document-only(content-block(...))` for this purpose — that still renders the gray "Summary Slide:" box in the document, falsely implying a slide existed. The dashed-border variant is the correct visual contract for elided slides.
 
-### 3. Container Restrictions
+## Container Restrictions
 
 **CRITICAL:** `slide-break()` and `page-break()` cannot be placed inside container parameters.
 
@@ -135,7 +113,7 @@ Use this when culling a slide while keeping its underlying material in the docum
 )
 ```
 
-### 4. Elements Outside Content-Blocks (Overlapping Issue)
+## Elements Outside Content-Blocks (Overlapping Issue)
 
 **CRITICAL:** ANY content placed **outside** a `content-block` but intended to appear on the same slide will overlap in presentation mode. This includes `#concept-box`, plain text paragraphs, or any other elements.
 
@@ -188,7 +166,7 @@ Hence, this summary paragraph will overlap with the slide above!
 
 **Why this happens:** In presentation mode, each `content-block` defines a slide's content area. Elements outside the block are rendered separately and can overlap with the block's content.
 
-### 5. Verification Steps
+## Verification Steps
 
 After making changes, always verify compilation:
 
@@ -207,7 +185,7 @@ typst compile Topic_N/Topic_N_document.typ --root . /tmp/test_doc.pdf
 - Page breaks occur at expected locations
 - Title slides render correctly
 
-### 6. Reference Examples
+## Reference Examples
 
 Working examples in `typst-dual-format/examples/`:
 
@@ -218,7 +196,7 @@ Working examples in `typst-dual-format/examples/`:
 ## Common Errors and Solutions
 
 | Error | Cause | Solution |
-|-------|-------|----------|
+| --- | --- | --- |
 | "cannot add alignment and boolean" | Parameter named `center` shadows Typst's built-in `center` alignment | Use `centered` parameter instead |
 | "pagebreaks are not allowed inside of containers" | `slide-break()` or `page-break()` inside `summary:` or `details:` | Move breaks outside content-blocks |
 | "unexpected argument" on title-slide | Positional argument or wrong parameter name | Use named params: `title:`, `subtitle:`, `author:` |
@@ -226,31 +204,10 @@ Working examples in `typst-dual-format/examples/`:
 | Text overlapping vertically | `centered: true` with `place()` absolute positioning | Set `centered: false` |
 | Content overlapping on slides | Any content (concept-box, text, etc.) placed outside `content-block` | Move ALL content inside the `summary:` parameter |
 
-## Updating Multiple Topics
+## After a Submodule Bump
 
-When migrating multiple Topic folders:
+When the submodule is updated to a new commit, before relying on existing usage patterns:
 
-1. **Identify all files needing updates:**
-
-   ```bash
-   grep -r "import.*dual_format" Topic_*/
-   ```
-
-2. **Update systematically:**
-   - Driver files first (`*_slides.typ`, `*_document.typ`)
-   - Then content files (`Topic_N_Content/*.typ`)
-   - Then QA files if present (`Topic_N_QA/*.typ`)
-
-3. **Test each topic before moving to next:**
-   - Compile both slides and document
-   - Visually verify output
-
-## Submodule Version Changes
-
-When the submodule is updated with new features or breaking changes:
-
-1. **Check the submodule changelog/commits** for breaking changes
-2. **Review function signatures** in `dual_format.typ`, `presentation_functions.typ`, `document_functions.typ`
-3. **Compare with example files** to see correct usage patterns
-4. **Update content files** as needed
-5. **Re-verify compilation** of all affected Topic folders
+1. **Skim the submodule log** (`git -C typst-dual-format log --oneline ORIG_HEAD..HEAD`) for breaking changes
+2. **Check function signatures** in `dual_format.typ`, `presentation_functions.typ`, `document_functions.typ` if any function you use was touched
+3. **Re-compile both slides and document** for affected sessions and visually verify output
