@@ -5,12 +5,14 @@ This skill guides updates to content repositories that use the `typst-dual-forma
 ## Repository Structure
 
 ### Submodule Files (typst-dual-format/)
+
 - `dual_format.typ` - Main entry point, imports and re-exports presentation and document functions
 - `presentation_functions.typ` - Slide-specific functions (`title-slide`, `slide-break`, etc.)
 - `document_functions.typ` - Document-specific functions (`page-break`, etc.)
 
 ### Content Repository Structure
-```
+
+```text
 Topic_N/
 ├── Topic_N_slides.typ      # Presentation driver
 ├── Topic_N_document.typ    # Document driver
@@ -31,6 +33,7 @@ When updating content files to use the submodule (or when submodule is updated):
 ### 1. Update Import Paths
 
 **Driver files** (in `Topic_N/`):
+
 ```typst
 // OLD:
 #import "../dual_format.typ": *
@@ -40,6 +43,7 @@ When updating content files to use the submodule (or when submodule is updated):
 ```
 
 **Content files** (in `Topic_N/Topic_N_Content/` or `Topic_N/Topic_N_QA/`):
+
 ```typst
 // OLD:
 #import "../../dual_format.typ": *
@@ -51,6 +55,7 @@ When updating content files to use the submodule (or when submodule is updated):
 ### 2. Function Signature Compatibility
 
 #### `title-slide` function
+
 The submodule version requires **named parameters only**:
 
 ```typst
@@ -70,6 +75,7 @@ The submodule version requires **named parameters only**:
 ```
 
 #### `content-block` function
+
 - Parameter is `centered` (not `center`)
 - Default is `centered: false` (left-justified)
 - Use `centered: true` only when you specifically want centered content
@@ -82,6 +88,22 @@ The submodule version requires **named parameters only**:
   details: [...]
 )
 ```
+
+#### `content-block-doc-only` function
+
+Same signature as `content-block`. Renders nothing in presentation mode; in document mode renders with a **dashed** gray border and a **"Summary Slide (not presented):"** label so the reader can see the content has no corresponding slide.
+
+Use this when culling a slide while keeping its underlying material in the document. Converting between `content-block` and `content-block-doc-only` is a one-token rename — no other changes needed.
+
+```typst
+#content-block-doc-only(
+  title: "Background detail",
+  summary: [Brief framing — appears in dashed-border "(not presented)" box],
+  details: [Long-form content shown only in the document...]
+)
+```
+
+**Do not** use `document-only(content-block(...))` for this purpose — that still renders the gray "Summary Slide:" box in the document, falsely implying a slide existed. The dashed-border variant is the correct visual contract for elided slides.
 
 ### 3. Container Restrictions
 
@@ -179,6 +201,7 @@ typst compile Topic_N/Topic_N_document.typ --root . /tmp/test_doc.pdf
 ```
 
 **Visual checks:**
+
 - Text should be left-justified (not centered) unless `centered: true` is set
 - No overlapping or superimposed text
 - Page breaks occur at expected locations
@@ -187,6 +210,7 @@ typst compile Topic_N/Topic_N_document.typ --root . /tmp/test_doc.pdf
 ### 6. Reference Examples
 
 Working examples in `typst-dual-format/examples/`:
+
 - `corporate_finance_optimal_capital_structure_slides.typ`
 - `corporate_finance_optimal_capital_structure_document.typ`
 - Modules in `examples/modules/` demonstrate correct `content-block` usage
@@ -207,6 +231,7 @@ Working examples in `typst-dual-format/examples/`:
 When migrating multiple Topic folders:
 
 1. **Identify all files needing updates:**
+
    ```bash
    grep -r "import.*dual_format" Topic_*/
    ```
