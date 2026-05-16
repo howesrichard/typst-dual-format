@@ -134,7 +134,8 @@
   summary: none,
   details: none,
   examples: none,
-  centered: false
+  centered: false,
+  level: 2,
 ) = context {
   if output-mode.get() == "presentation" {
     // Presentation format: title + summary only with optional vertical centering
@@ -182,14 +183,14 @@
 
   } else {
     // Document format: full content (unchanged)
-    if title != none [
-      == #title
-      #if subtext != none [
-        #v(-0.2em)
-        #text(size: 0.9em, weight: "light", style: "italic")[#subtext]
-      ]
-      #v(0.3em)
-    ]
+    if title != none {
+      heading(level: level)[#title]
+      if subtext != none {
+        v(-0.2em)
+        text(size: 0.9em, weight: "light", style: "italic")[#subtext]
+      }
+      v(0.3em)
+    }
     if summary != none { 
       rect(
         width: 100%,
