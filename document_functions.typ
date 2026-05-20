@@ -137,6 +137,34 @@
   )
 }
 
+// Centered title block for document cover pages.
+// Renders title, subtitle, author/affiliation, and the build date
+// (the date the PDF was compiled). The build date is produced from
+// `datetime.today()`, so the value reflects the compile date.
+#let document-cover(
+  title: none,
+  subtitle: none,
+  author: "Fixed Income Course - Financial Markets Academy",
+  date-format: "[month repr:long] [day], [year]",
+) = {
+  align(center)[
+    #text(size: 18pt, weight: "bold")[#title]
+
+    #v(0.5em)
+    #text(size: 14pt)[#subtitle]
+
+    #v(0.5em)
+    #text(size: 12pt)[#author]
+
+    #v(0.5em)
+    #text(size: 11pt, style: "italic", fill: rgb("#6b7280"))[
+      Built #datetime.today().display(date-format)
+    ]
+  ]
+
+  v(2em)
+}
+
 // Multi-column layout for document content
 #let two-column-content(left, right) = {
   grid(
