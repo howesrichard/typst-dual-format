@@ -164,8 +164,9 @@
       [
         *Beta Definitions:*
 
-        - $ beta_a $ = Asset beta (business risk)
-        - $ beta_e^L $ = Equity beta (business + financial risk)
+        $beta_a$  = Asset beta (business risk)
+
+        $beta_e^L$  = Equity beta (business + financial risk) 
 
         *Key Insight:*
         Leverage amplifies the systematic risk of equity through the debt-to-equity ratio
