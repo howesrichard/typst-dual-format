@@ -1,10 +1,9 @@
 // Module: Arbitrage Proof Concepts
 // Purpose: Sets out content related to arbitrage proofs for MM irrelevance
 // Reuse contexts: various
-// Dependencies: dual_format.typ, document_functions.typ
+// Dependencies: dual_format.typ (re-exports all document + presentation functions)
 
 #import "../../dual_format.typ": *
-#import "../../document_functions.typ": *
 
 #content-block(
   title: "Arbitrage Proof Framework",
@@ -59,8 +58,8 @@
             header-fills: (rgb("#384d81"), rgb("#384d81")),
             header-styles: (("Component", ""), ("Amount", "")),
             body-content: (
-              ("Investment", "(0.01) $times$ $V_U$"),
-              ("Cash Flow", "(0.01) $times$ X")
+              ([Investment], [$0.01 times V_U$]),
+              ([Cash Flow], [$0.01 times X$])
             )
           )
         ]
@@ -73,9 +72,9 @@
             header-fills: (rgb("#384d81"), rgb("#384d81"), rgb("#384d81")),
             header-styles: (("Position", ""), ("Investment", ""), ("Cash Flow", "")),
             body-content: (
-              ("Equity", "(0.01) $times$ $E_L$", "(0.01)[X - $r_d$ D]"),
-              ("Debt", "(0.01) $times$ $D_L$", "(0.01)[$r_d$ D]"),
-              ("Total", "(0.01) $times$ $V_L$", "(0.01) $times$ X")
+              ([Equity], [$0.01 times E_L$], [$0.01 (X - r_d D)$]),
+              ([Debt], [$0.01 times D_L$], [$0.01 (r_d D)$]),
+              ([Total], [$0.01 times V_L$], [$0.01 times X$])
             )
           )
         ]
