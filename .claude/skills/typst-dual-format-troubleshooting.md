@@ -164,7 +164,34 @@ Hence, this summary paragraph will overlap with the slide above!
 )
 ```
 
-**Why this happens:** In presentation mode, each `content-block` defines a slide's content area. Elements outside the block are rendered separately and can overlap with the block's content.
+**Why this happens:** In presentation mode, `content-block` (and `examples-box`) paint their body with `place()`, which is *out of flow* — it does not advance the layout cursor. So the next element rendered at top level lands at the **top of the same slide**, on top of the placed body.
+
+### The break-then-content corner (easy to hit)
+
+This is the trap that the "move content inside `summary:`" rule does **not** cover, because breaks *cannot* go inside `summary:` (see Container Restrictions above). So content after a break is forced to be top-level — and top-level content overlaps the prior block's placed summary, then a lone break leaves an empty slide.
+
+```typst
+// WRONG - bare content after a content-block / after a break:
+#content-block(title: "A", summary: [...])
+
+This text overlaps A's summary!   // overlaps the placed summary on A's slide
+#slide-break()                     // ...then breaks to an EMPTY slide
+
+// CORRECT - open the post-break content on a fresh slide via slide()
+// (or make it another content-block / section, which self-break):
+#content-block(title: "A", summary: [...])
+
+#presentation-only[
+  #slide(title: "B", center: false)[ Content that sits before the break. ]
+]
+#slide-break()
+#both-formats(
+  [Now on a new slide, reached via slide-break().],   // has content -> no empty slide
+  [Now on a new page, reached via page-break().],
+)
+```
+
+**Rule of thumb:** the only things safe to place at top level after a `content-block` are other *self-breaking* blocks (`content-block`, `content-block-doc-only`, `section`, `slide`, `formula`). Bare `presentation-only[…]`, `both-formats(…)`, or plain text must either live inside a `summary:` or open on their own `slide(…)`.
 
 ## Verification Steps
 
@@ -203,6 +230,7 @@ Working examples in `typst-dual-format/examples/`:
 | Text centered when it shouldn't be | `centered: true` (explicitly or as default) | Set `centered: false` |
 | Text overlapping vertically | `centered: true` with `place()` absolute positioning | Set `centered: false` |
 | Content overlapping on slides | Any content (concept-box, text, etc.) placed outside `content-block` | Move ALL content inside the `summary:` parameter |
+| Overlap + empty slide after a break | Bare top-level content after a `content-block`, then `slide-break()` | Open post-break content on its own `slide(...)`; ensure content follows the break (see "break-then-content corner") |
 
 ## After a Submodule Bump
 

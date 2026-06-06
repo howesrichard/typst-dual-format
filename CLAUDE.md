@@ -82,3 +82,4 @@ Do **not** wrap a regular `content-block(...)` in `document-only(...)` to achiev
 2. `content-block` uses `centered:` parameter (default: `false`)
 3. `slide-break()` and `page-break()` cannot be inside `summary:` or `details:` containers
 4. To exclude a content-block from slides while keeping it in the document, use `content-block-doc-only(...)` rather than `document-only(content-block(...))`
+5. `content-block` paints its summary with `place()` (out of flow), so **bare top-level content after a content-block overlaps its slide** — and a lone `slide-break()` then leaves an empty slide. Only self-breaking blocks (`content-block`, `section`, `slide`, `formula`) are safe at top level after a content-block; put anything else inside `summary:` or open it on its own `slide(...)`. See the `/typst-dual-format-troubleshooting` skill ("break-then-content corner").
