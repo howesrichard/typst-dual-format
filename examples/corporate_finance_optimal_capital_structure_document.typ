@@ -7,6 +7,10 @@
 #set-mode("document")
 #set-show-advanced(false)
 
+// Single source of truth for title-page and running-header text
+#let doc-title = "Corporate Finance - Optimal Capital Structure"
+#let doc-date = "December 2025"
+
 // Title page with logo
 #set page(
   paper: "a4",
@@ -16,20 +20,27 @@
 )
 
 #align(center)[
-  #text(size: 18pt, weight: "bold")[Corporate Finance - Optimal Capital Structure]
+  #text(size: 18pt, weight: "bold")[#doc-title]
   #v(0.5em)
   #text(size: 14pt)[Financial Markets Academy]
   #v(0.5em)
-  #text(size: 12pt)[December 2025]
+  #text(size: 12pt)[#doc-date]
 ]
 
 
 // Reset page settings for content pages
 #set page(
   paper: "a4",
-  margin: (top: 0.7in, right: 0.7in, bottom: 0.7in, left: 0.7in),
+  margin: (top: 1in, right: 0.7in, bottom: 0.7in, left: 0.7in),
+  header-ascent: 0.25in,
   footer: [#v(0.1in)#line(length: 100%)#v(-6pt)#align(center)[#text(size: 12pt)[#context counter(page).display("1")]]],
-  header: [#text(size: 12pt)[#grid(columns: 3, gutter: 1fr, [fill in here], [fill in here], [fill in here])]#v(-12pt)#line(length: 100%)#v(0.2in)]
+  header: [#grid(
+    columns: (auto, 1fr, auto),
+    align: (left + horizon, center + horizon, right + horizon),
+    image("../cropped_FINMA_logo.png", height: 0.22in),
+    text(size: 10pt)[#doc-title],
+    text(size: 10pt)[#doc-date],
+  )#v(-6pt)#line(length: 100%)#v(0.2in)]
 )
 
 #include "corporate_finance_optimal_capital_structure_content.typ"
