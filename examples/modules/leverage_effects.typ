@@ -1,10 +1,9 @@
 // Module: Leverage Effects
 // Purpose: Sets out content related to leverage effects on returns, risk, and capital structure
 // Reuse contexts: various
-// Dependencies: dual_format.typ, document_functions.typ
+// Dependencies: dual_format.typ (re-exports all document + presentation functions)
 
 #import "../../dual_format.typ": *
-#import "../../document_functions.typ": *
 
 #content-block(
   title: "MMI: Firm Value Independence",
@@ -129,10 +128,10 @@
             header-fills: (rgb("#384d81"), rgb("#384d81")),
             header-styles: (("Unlevered Investment", ""), ("Homemade Leverage", "")),
             body-content: (
-              ("\$100 Investment", "\$100 Borrowed + \$100 Investment"),
+              ("$100 Investment", "$100 Borrowed + $100 Investment"),
               ("Jackson Ltd.", "Jackson Ltd."),
-              ("\$112 Payoff", "\$224 - \$109 Repayment"),
-              ("", "\$115 NET Payoff")
+              ("$112 Payoff", "$224 - $109 Repayment"),
+              ("", "$115 NET Payoff")
             )
           )
         ]
