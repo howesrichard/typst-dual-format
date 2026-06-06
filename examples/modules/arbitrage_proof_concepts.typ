@@ -68,7 +68,7 @@
         #block(width: 100%, height: 85%)[
           *Investment in Levered Firm (1% stake)*
           #make-table(
-            columns: (1fr, 1fr, 1fr),
+            columns: (0.8fr, 1fr, 1.2fr),
             header-fills: (rgb("#384d81"), rgb("#384d81"), rgb("#384d81")),
             header-styles: (("Position", ""), ("Investment", ""), ("Cash Flow", "")),
             body-content: (
