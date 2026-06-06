@@ -94,18 +94,28 @@ Example content file:
 )
 ```
 
-## Worked Example
+## Worked Examples
 
-For a complete, compilable demonstration of the system on real material
-(sectioning, module composition via `#include`, and the slide/document
-split), see the [`examples/`](examples/) directory:
+The [`examples/`](examples/) directory contains two complementary demonstrations:
+
+1. **Realistic lecture** — `corporate_finance_optimal_capital_structure_*` shows
+   the system on real material: sectioning, module composition via `#include`,
+   and the slide/document split.
+2. **API showcase** — `api_showcase_*` is a reference deck/document that
+   exercises *every* exported function at least once, organised by API surface
+   rather than by subject. Start here to see what a given function looks like.
 
 ```bash
+# Realistic lecture
 typst compile --root . examples/corporate_finance_optimal_capital_structure_document.typ
 typst compile --root . examples/corporate_finance_optimal_capital_structure_slides.typ
+
+# Complete API showcase
+typst compile --root . examples/api_showcase_document.typ
+typst compile --root . examples/api_showcase_slides.typ
 ```
 
-These example entrypoints are compile-checked in CI (see
+All example entrypoints are compile-checked in CI (see
 [`.github/workflows/build-examples.yml`](.github/workflows/build-examples.yml)),
 so they stay in sync with the API.
 

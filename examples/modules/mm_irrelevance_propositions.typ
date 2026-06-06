@@ -1,10 +1,9 @@
 // Module: Modigliani-Miller Irrelevance Propositions
 // Purpose: Sets out content related to Modigliani-Miller irrelevance propositions
 // Reuse contexts: various
-// Dependencies: dual_format.typ, document_functions.typ
+// Dependencies: dual_format.typ (re-exports all document + presentation functions)
 
 #import "../../dual_format.typ": *
-#import "../../document_functions.typ": *
 
 #section("Modigliani-Miller Irrelevance Propositions")
 

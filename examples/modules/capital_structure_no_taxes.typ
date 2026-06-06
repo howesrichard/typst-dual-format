@@ -1,10 +1,9 @@
 // Module: Capital Structure without Taxes
 // Purpose: Defines content related to capital structure without taxes
 // Reuse contexts: various
-// Dependencies: dual_format.typ, document_functions.typ
+// Dependencies: dual_format.typ (re-exports all document + presentation functions)
 
 #import "../../dual_format.typ": *
-#import "../../document_functions.typ": *
 
 #section("Capital Structure - No Taxes")
 

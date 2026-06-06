@@ -273,8 +273,12 @@
 // Import presentation functions for slides
 #import "presentation_functions.typ": slide, title-slide, section-slide, formula-slide, two-column-slide, highlight-slide, final-slide, two-by-two-grid, three-column-grid, two-column-grid, two-row-grid, three-row-grid
 
-// Import and export document functions for study guides and prereading documents etc
-#import "document_functions.typ": section-heading, formula-block, concept-box, example-box, examples-box, definition-box, figure-box, takeaways-box, two-column-content, document-cover
+// Import and export document functions for study guides and prereading documents etc.
+// NOTE: examples-box is intentionally NOT imported here — dual_format.typ defines its
+// own mode-aware examples-box (above) that renders correctly in BOTH slides and
+// documents. The document_functions.typ version is document-only; importing it would
+// shadow the mode-aware one for `import *` consumers.
+#import "document_functions.typ": section-heading, formula-block, concept-box, example-box, definition-box, figure-box, takeaways-box, two-column-content, document-cover
 
 // Unified section function that chooses appropriate format
 #let section(title, subtitle: none) = context {

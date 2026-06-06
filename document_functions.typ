@@ -174,21 +174,7 @@
   )
 }
 
-// Orange example box with transparency for highlighting examples
-#let examples-box(content) = {
-  block(breakable: false)[
-    #rect(
-      width: 100%,
-      stroke: 2pt + rgb("#ea580c"), // Orange border
-      fill: rgb("#fed7aa").transparentize(70%), // Light orange with 70% transparency
-      radius: 6pt,
-      inset: 1em
-    )[
-      #text(weight: "bold", fill: rgb("#ea580c"))[Examples:]
-      #v(0.3em)
-      #content
-    ]
-  ]
-
-  v(0.8em)
-}
+// NOTE: examples-box lives in dual_format.typ (mode-aware: renders in both
+// slides and documents). It was previously duplicated here as a document-only
+// variant, which shadowed the canonical one for `import *` consumers. Removed
+// to keep a single source of truth — import it from dual_format.typ.
