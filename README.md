@@ -94,6 +94,21 @@ Example content file:
 )
 ```
 
+## Worked Example
+
+For a complete, compilable demonstration of the system on real material
+(sectioning, module composition via `#include`, and the slide/document
+split), see the [`examples/`](examples/) directory:
+
+```bash
+typst compile --root . examples/corporate_finance_optimal_capital_structure_document.typ
+typst compile --root . examples/corporate_finance_optimal_capital_structure_slides.typ
+```
+
+These example entrypoints are compile-checked in CI (see
+[`.github/workflows/build-examples.yml`](.github/workflows/build-examples.yml)),
+so they stay in sync with the API.
+
 ## Documentation
 
 For comprehensive documentation including:
