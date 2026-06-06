@@ -25,16 +25,23 @@ subtitle: [
   These render in *both* formats. Write once; the system adapts the output.
 ])
 
-// content-block: the primary authoring unit. This call uses every parameter.
+// content-block: the primary authoring unit. The worked examples are folded
+// into the summary so they share this slide; the `examples:` parameter (which
+// would otherwise emit a separate "Examples" slide) is demonstrated in the
+// document via the doc-only block below.
 #content-block(
   title: "content-block — the core authoring unit",
   subtext: "subtext renders under the title in both formats",
   centered: false,
   summary: [
     - `summary:` is the slide body — and the gray "Summary Slide:" box in the document
-    - Keep it sparse: 2–4 bullets
-    - `details:` (below) is document-only long-form prose
-    - `examples:` produces a separate "Examples" slide + an orange box in the document
+    - `details:` adds document-only depth; `level:` sets the title's heading depth
+    - Keep slides sparse: 2–4 bullets
+
+    *Worked examples:*
+    - *Hedging:* lock in a price against an uncertain future cost
+    - *Speculation:* take a directional position to profit from a view
+    - *Arbitrage:* exploit a price discrepancy for a riskless profit
   ],
   details: [
     The `details:` parameter holds the long-form expansion that appears *only*
@@ -45,11 +52,6 @@ subtitle: [
     `level:` controls the heading depth of the title in document mode
     (default `2`); pass `level: 3` to nest a block under a parent section.
   ],
-  examples: [
-    - *Hedging:* lock in a price today against an uncertain future cost
-    - *Speculation:* take a directional position to profit from a view
-    - *Arbitrage:* exploit a price discrepancy for a riskless profit
-  ]
 )
 
 // content-block-doc-only: same signature, but excluded from slides. In the
@@ -67,7 +69,13 @@ subtitle: [
     Never wrap a regular `content-block(...)` in `document-only(...)` for this —
     that still draws the solid "Summary Slide:" box and falsely implies a slide
     existed.
-  ]
+  ],
+  examples: [
+    The `examples:` parameter renders this orange "Examples:" box. Shown here in
+    a doc-only block, so the `examples:` capability appears inline in the
+    document with no orphan slide:
+    - *Worked example:* a 1-year forward priced at $F = S e^(r T)$
+  ],
 )
 
 // formula: titled formula box, mode-aware (formula-slide vs formula-block).
@@ -97,18 +105,15 @@ subtitle: [
   ]
 )
 
-// examples-box: the mode-aware orange box, used standalone (outside a
-// content-block). This is the canonical definition from dual_format.typ.
-#content-block(
-  title: "examples-box — standalone orange box",
-  centered: false,
-  summary: [
-    #examples-box[
-      - Works in *both* slides and document (mode-aware)
-      - Use it for a cluster of brief worked examples outside a content-block
-    ]
+// examples-box: the mode-aware orange box used standalone (outside a
+// content-block). Demonstrated document-only — its slide form would just
+// duplicate the `examples:` box shown above, so it adds no slide here.
+#document-only[
+  #examples-box[
+    - `examples-box` works in both formats (mode-aware)
+    - Use it for a cluster of brief worked examples outside a content-block
   ]
-)
+]
 
 // advanced-content: hidden when compiled with `--input advanced=false`
 // (or `make ADVANCED=false`). Honours the flag here — no set-show-advanced
@@ -147,16 +152,26 @@ subtitle: [
   ]
 )
 
-// slide-break() / page-break(): mode-aware breaks. Called at top level (NOT
-// inside a summary:/details: container, which Typst disallows).
+// slide-break() / page-break(): mode-aware breaks. We open on a fresh slide
+// (via slide()) so the break has content on both sides and leaves no empty
+// slide. Breaks must be called at top level — never inside a
+// summary:/details: container, which Typst disallows.
 #presentation-only[
-  This sentence is just before a `slide-break()`.
+  #slide(title: "slide-break() · page-break()", center: false)[
+    This content sits *before* a `slide-break()`, which starts a new slide.
+    `page-break()` does the analogous thing in the document.
+  ]
+]
+#document-only[
+  #section-heading("slide-break() · page-break()")
+  This text sits *before* a `page-break()`, which starts a new document page.
 ]
 #slide-break()
-#document-only[
-  This sentence is just before a `page-break()`.
-]
 #page-break()
+#both-formats(
+  [We are now on a *new slide*, reached via `slide-break()`.],
+  [We are now on a *new page*, reached via `page-break()`.],
+)
 
 // ---------------------------------------------------------------------------
 #section("3 · Presentation layout primitives",
