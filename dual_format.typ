@@ -151,10 +151,10 @@
       if summary != none {
         place(
           top + (if centered { center } else { left }),
-          dy: 65pt,  // 30pt from top of slide
+          dy: 95pt,  // clears the title + rule + subtext header (~80–90 pt at 24 pt base text)
           block(
             width: if centered { auto } else { 100% },
-            height: if centered { 200pt } else { 470pt },
+            height: if centered { 200pt } else { 440pt },
           )[
             #text(size: 1.2em)[#summary]
           ]
